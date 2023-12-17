@@ -1,32 +1,27 @@
 const extractNumbersFromString = (inputString) => {
-    const numbersArray = [];
-    let currentNumber = '';
+  let res = [], str = '';
 
-    for (let char of inputString) {
-        if (!isNaN(char) || char === '.' || (char === '-' && currentNumber === '')) {
-            currentNumber += char;
-        } else if (currentNumber !== '') {
-            const parsedNumber = parseFloat(currentNumber);
-            if (!isNaN(parsedNumber)) {
-                numbersArray.push(parsedNumber);
-            }
-            currentNumber = '';
-        }
+  for (let i = 0; i < inputString.length; i++) {
+    if (isNaN(inputString[i])) continue;
+
+    if (str === '' && inputString[i] === '0') {
+      res.push(+inputString[i]);
+      continue;
     }
 
-    if (currentNumber !== '') {
-        const parsedNumber = parseFloat(currentNumber);
-        if (!isNaN(parsedNumber)) {
-            numbersArray.push(parsedNumber);
-        }
-    }
+    str += inputString[i];
 
-    return numbersArray;
+    if (isNaN(inputString[i + 1])) {
+      res.push(+str);
+      str = '';
+      i++;
+    }        
+  }
+
+  return res;
 };
 
 // Пример использования
-const inputString = "В этой строке есть числа: 123, 456 и 789, также -42 и 3.14";
-const resultArray = extractNumbersFromString(inputString);
-
-console.log(resultArray);
+const inputString = '00asdf0123 d6 lkj006m90';
+console.log(extractNumbersFromString(inputString));
 
