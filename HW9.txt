@@ -1,0 +1,31 @@
+function res(str) {
+  const match = str.match(/(-?\d+(\.\d+)?)x\^2([+-]\d+(\.\d+)?)x([+-]\d+(\.\d+)?)=0/);
+
+  if (!match) {
+    return 'Invalid equation format';
+  }
+
+  const a = Number(match[1]);
+  const b = Number(match[3]);
+  const c = Number(match[5]);
+
+  let D = b*b-4*a*c;
+    if (D>0) {
+        let res = [];
+        res.push((-b+D**0.5)/(2*a));
+        res.push((-b-D**0.5)/(2*a));
+        return(res);
+    } else if (D==0) {
+        return(-b/(2*a));
+    } else {
+        return('No solutions');
+    }
+}
+
+let a = "300x^2+5x-4=0";
+let b = "3.5x^2-6x-7=0";
+let c = "3x^2+5.1x+8=0";
+
+console.log(res(a));
+console.log(res(b));
+console.log(res(c));
